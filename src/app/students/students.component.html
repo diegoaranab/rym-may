@@ -1,18 +1,18 @@
-<h2 class="page-title">Register Student</h2>
+<h2 class="titulo-seccion">Registrar alumna</h2>
 
 <form [formGroup]="form" class="student-form" (ngSubmit)="save()">
   <mat-form-field appearance="outline">
-    <mat-label>Full Name</mat-label>
+    <mat-label>Nombre completo</mat-label>
     <input matInput formControlName="fullName" required />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Phone</mat-label>
+    <mat-label>Teléfono</mat-label>
     <input matInput formControlName="phone" required />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
+    <mat-label>Correo electrónico</mat-label>
     <input matInput formControlName="email" />
   </mat-form-field>
 

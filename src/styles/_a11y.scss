@@ -1,0 +1,5 @@
+/* Visible focus ring (WCAG 2.2) */
+:focus-visible {
+  outline: 3px solid var(--mdc-theme-primary, #1D1E5B);
+  outline-offset: 2px;
+}
