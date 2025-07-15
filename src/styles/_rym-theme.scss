@@ -1,0 +1,41 @@
+/* Rym May brand palette & theme */
+@use '@angular/material' as mat;
+
+// ----- 1. Brand palettes -----
+$rym-primary: mat.define-palette((
+  50 : #e5e6ed,
+  100: #c3c4d3,
+  200: #9ea0b7,
+  300: #787a9a,
+  400: #5b5d84,
+  500: #1D1E5B,  // main corporate blue
+  600: #191a52,
+  700: #141548,
+  800: #0f103e,
+  900: #07082c,
+  contrast: (
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+));
+
+$rym-accent: mat.define-palette(mat.$pink-palette, 400, 300, 600); // hot-pink accent
+$rym-warn  : mat.define-palette(mat.$deep-orange-palette, 600);
+
+// ----- 2. Theme map -----
+$rym-theme: mat.define-light-theme((
+  color: (
+    primary: $rym-primary,
+    accent : $rym-accent,
+    warn   : $rym-warn,
+  ),
+  typography: mat.define-typography-config(),  // default; tweak later
+  density   : 0,
+));
+
+// ----- 3. Emit theme -----
+@include mat.core();
+@include mat.all-component-themes($rym-theme);

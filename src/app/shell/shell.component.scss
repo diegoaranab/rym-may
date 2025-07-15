@@ -1,0 +1,20 @@
+.sidenav-container { height: 100vh; }
+.flex-spacer       { flex: 1 1 auto; }
+
+.logo-bar { justify-content: center; }
+.mat-list-item.active {
+  background: rgba(#C54573, 0.15);   /* ✅ modern Sass rgba syntax */
+}
+/* highlight active item with translucent pink */
+.mat-mdc-list-item.active {
+  background-color: rgba(#C54573, 0.15) !important;
+}
+
+.mat-mdc-list-item.active::after {
+  /* overlay element */
+  background-color: rgba(#C54573, 0.15);
+}
+:host ::ng-deep .mat-mdc-list-item.active
+                .mat-mdc-focus-indicator::after {
+  background-color: rgba(#C54573, 0.15);   /* translucent pink */
+}
