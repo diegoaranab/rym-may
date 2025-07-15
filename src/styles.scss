@@ -1,7 +1,6 @@
-/* src/styles.scss — global entry */
-@use 'styles/rym-theme';   // pulls in the full Material theme
+@use 'styles/rym-theme';            /* loads the theme */
 
-/* Optional utility class for gradient buttons */
+/* gradient utility */
 .gradient-btn {
   background: linear-gradient(135deg, #600C6A 0%, #C54573 100%);
   color: #fff !important;
@@ -9,4 +8,4 @@
 
 /* Global resets */
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body       { margin: 0; font-family: 'Poppins', Roboto, sans-serif; }

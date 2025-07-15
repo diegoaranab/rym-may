@@ -1,7 +1,7 @@
-/* Rym May brand palette & theme */
+/*  src/styles/_rym-theme.scss  */
 @use '@angular/material' as mat;
 
-// ----- 1. Brand palettes -----
+/* 1. Brand palettes */
 $rym-primary: mat.define-palette((
   50 : #e5e6ed,
   100: #c3c4d3,
@@ -22,20 +22,20 @@ $rym-primary: mat.define-palette((
   )
 ));
 
-$rym-accent: mat.define-palette(mat.$pink-palette, 400, 300, 600); // hot-pink accent
+$rym-accent: mat.define-palette(mat.$pink-palette, 400, 300, 600);   // hot pink
 $rym-warn  : mat.define-palette(mat.$deep-orange-palette, 600);
 
-// ----- 2. Theme map -----
+/* 2. Theme map */
 $rym-theme: mat.define-light-theme((
   color: (
     primary: $rym-primary,
     accent : $rym-accent,
     warn   : $rym-warn,
   ),
-  typography: mat.define-typography-config(),  // default; tweak later
+  typography: mat.define-typography-config( $font-family: 'Poppins, Roboto, sans-serif' ),
   density   : 0,
 ));
 
-// ----- 3. Emit theme -----
+/* 3. Emit once */
 @include mat.core();
 @include mat.all-component-themes($rym-theme);
