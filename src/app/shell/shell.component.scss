@@ -3,7 +3,6 @@
 .logo-bar          { justify-content: center; }
 
 /* Pink translucency when router marks an <a> as .active */
-:host ::ng-deep .mat-mdc-list-item.active
-                .mat-mdc-focus-indicator::after {
+:host ::ng-deep .mat-mdc-list-item.active {
   background-color: rgba(#C54573, 0.15);
 }
