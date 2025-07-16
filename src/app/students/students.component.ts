@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, startWith } from 'rxjs';
+
 import { v4 as uuid } from 'uuid';
 
 import { StudentService } from '../services/student.service';
@@ -32,21 +31,13 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
-  private readonly handsetCols = ['fullName', 'courseId', 'paidDeposit'] as const;
-  private readonly desktopCols = [
+  displayedColumns = [
     'fullName',
     'phone',
     'email',
     'courseId',
     'paidDeposit',
   ] as const;
-
-  displayedColumns$ = this.bp
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((r) => (r.matches ? this.handsetCols : this.desktopCols)),
-      startWith(this.desktopCols)
-    );
 
   students$ = this.studentSvc.students$;
 
@@ -61,8 +52,7 @@ export class StudentsComponent {
   constructor(
     private fb: FormBuilder,
     private studentSvc: StudentService,
-    private sb: MatSnackBar,
-    private bp: BreakpointObserver
+    private sb: MatSnackBar
   ) {}
 
   save() {
