@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 import { v4 as uuid } from 'uuid';
 
 import { StudentService } from '../services/student.service';
@@ -31,9 +31,13 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
-  displayedColumns = this.bp.isMatched(Breakpoints.Handset)
-    ? ['fullName','courseId','paidDeposit']
-    : ['fullName','phone','email','courseId','paidDeposit'];
+  displayedColumns = [
+    'fullName',
+    'phone',
+    'email',
+    'courseId',
+    'paidDeposit',
+  ] as const;
 
   students$ = this.studentSvc.students$;
 
@@ -48,8 +52,7 @@ export class StudentsComponent {
   constructor(
     private fb: FormBuilder,
     private studentSvc: StudentService,
-    private sb: MatSnackBar,
-    private bp: BreakpointObserver
+    private sb: MatSnackBar
   ) {}
 
   save() {
