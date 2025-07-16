@@ -13,6 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -30,15 +33,10 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
-
-  displayedColumns = [
-
-    'fullName',
-    'phone',
-    'email',
-    'courseId',
-    'paidDeposit',
-  ] as const;
+  displayedColumnsHandset = ['fullName','courseId','factura'] as const;
+  displayedColumnsDesktop = ['fullName','phone','email','courseId','paidDeposit','factura'] as const;
+  displayedColumns = this.bp.isMatched(Breakpoints.Handset)
+    ? this.displayedColumnsHandset : this.displayedColumnsDesktop;
 
 
   students$ = this.studentSvc.students$;
@@ -54,8 +52,17 @@ export class StudentsComponent {
   constructor(
     private fb: FormBuilder,
     private studentSvc: StudentService,
-    private sb: MatSnackBar
+    private sb: MatSnackBar,
+    private dialog: MatDialog,
+    private bp: BreakpointObserver
   ) {}
+
+  abrirFactura(alumna: Student) {
+    this.dialog.open(InvoiceDialogComponent, {
+      autoFocus: false,
+      panelClass: 'pdf-dialog'
+    });
+  }
 
   save() {
     if (this.form.invalid) return;
