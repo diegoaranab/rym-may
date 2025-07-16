@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-
 import { v4 as uuid } from 'uuid';
 
 import { StudentService } from '../services/student.service';
@@ -31,13 +30,16 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
+
   displayedColumns = [
+
     'fullName',
     'phone',
     'email',
     'courseId',
     'paidDeposit',
   ] as const;
+
 
   students$ = this.studentSvc.students$;
 
