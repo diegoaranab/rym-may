@@ -1,0 +1,19 @@
+<h2 class="titulo" [class.handset]="isHandset">Nuestros cursos</h2>
+
+<section class="grid">
+  <mat-card class="curso" *ngFor="let c of cursos">
+    <img mat-card-image [src]="c.imagen" [alt]="c.nombre" />
+    <mat-card-header>
+      <mat-card-title>{{ c.nombre }}</mat-card-title>
+      <mat-card-subtitle>{{ c.duracion }} • {{ c.precio }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>{{ c.descripcion }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="accent">Inscribirme</button>
+    </mat-card-actions>
+  </mat-card>
+</section>
