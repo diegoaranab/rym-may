@@ -1,11 +1,17 @@
-.page-title { margin-bottom: 1rem; font-family: 'Barlow Semi Condensed', sans-serif; }
+@use '../../styles/layout';
+
+.titulo-seccion { @extend %fluid-h2; }
 
 .student-form {
   display: grid;
-  gap: 1rem;
+  gap: layout.$space-2;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-bottom: 2rem;
+  margin-block-end: layout.$space-3;
 }
 
 .mat-form-field { width: 100%; }
 table { width: 100%; }
+
+@container style(max-width: 480px) {
+  table { font-size: .85rem; }
+}

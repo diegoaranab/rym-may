@@ -1,4 +1,6 @@
 @use 'styles/rym-theme';            /* loads the theme */
+@use 'styles/layout';
+@use 'styles/a11y';
 
 /* gradient utility */
 .gradient-btn {

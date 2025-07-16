@@ -1,14 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [mode]="'side'" [opened]="true"
-               aria-label="Navigation">
+               aria-label="Navegación">
     <mat-toolbar color="primary" class="logo-bar">
       <img src="assets/logo-rym.svg" width="120" alt="Rym May">
     </mat-toolbar>
 
     <mat-nav-list>
       <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
-        <mat-icon>insights</mat-icon> Dashboard
+        <mat-icon>insights</mat-icon> Panel
       </a>
       <a mat-list-item routerLink="/students" routerLinkActive="active">
         <mat-icon>group</mat-icon> Estudiantes
@@ -24,7 +24,7 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="topbar">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <button type="button" aria-label="Mostrar/ocultar menú" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       <span class="flex-spacer"></span>
@@ -32,6 +32,8 @@
     </mat-toolbar>
 
     <!-- routed views -->
-    <router-outlet></router-outlet>
+    <main class="page-container">
+      <router-outlet></router-outlet>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

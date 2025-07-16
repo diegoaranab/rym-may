@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { v4 as uuid } from 'uuid';
 
 import { StudentService } from '../services/student.service';
@@ -30,7 +31,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
-  displayedColumns = ['fullName', 'phone', 'email', 'courseId', 'paidDeposit'];
+  displayedColumns = this.bp.isMatched(Breakpoints.Handset)
+    ? ['fullName','courseId','paidDeposit']
+    : ['fullName','phone','email','courseId','paidDeposit'];
 
   students$ = this.studentSvc.students$;
 
@@ -45,7 +48,8 @@ export class StudentsComponent {
   constructor(
     private fb: FormBuilder,
     private studentSvc: StudentService,
-    private sb: MatSnackBar
+    private sb: MatSnackBar,
+    private bp: BreakpointObserver
   ) {}
 
   save() {
@@ -56,7 +60,7 @@ export class StudentsComponent {
       createdAt: Date.now()
     };
     this.studentSvc.add(student);
-    this.sb.open('Student registered!', '', { duration: 2000 });
+    this.sb.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
     this.form.reset();
   }
 }
