@@ -1,6 +1,7 @@
 @use '../../styles/layout';
 
 .titulo-seccion { @extend %fluid-h2; }
+.student-table { width: 100%; }
 
 .student-form {
   display: grid;
@@ -12,8 +13,7 @@
 .mat-form-field { width: 100%; }
 
 .table-container { overflow-x: auto; }
-table { width: 100%; }
 
 @container style(max-width: 480px) {
-  table { font-size: .85rem; }
+  .student-table { font-size: .85rem; }
 }

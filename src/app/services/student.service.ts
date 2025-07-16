@@ -20,6 +20,7 @@ export class StudentService {
   /** util for demo edit/remove if needed later */
   update(list: Student[]) { this.persist(list); }
 
+
   // ---------- private ----------
   private persist(list: Student[]) {
     localStorage.setItem(LS_KEY, JSON.stringify(list));
