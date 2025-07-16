@@ -1,0 +1,21 @@
+@use '../../styles/layout';
+
+.titulo { @extend %fluid-h2; text-align: center; }
+.titulo.handset { font-size: clamp(1.2rem, 2vw + .5rem, 1.8rem); }
+
+.grid {
+  display: grid;
+  gap: layout.$space-2;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding-block: layout.$space-3;
+}
+
+.curso {
+  img { height: 160px; object-fit: cover; }
+  mat-card-header { background-color: rgb(29,30,91); color: #fff; }
+  button { margin-top: layout.$space-1; }
+}
+
+@container style(max-width: 320px) {
+  .curso { font-size: .9rem; }
+}
