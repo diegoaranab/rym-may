@@ -2,7 +2,7 @@
 .flex-spacer       { flex: 1 1 auto; }
 .logo-bar          { justify-content: center; }
 
-/* Pink translucency when router marks an <a> as .active */
-:host ::ng-deep .mat-mdc-list-item.active {
+/* Highlight active nav item using the app accent */
+:host ::ng-deep .mat-mdc-nav-list .mdc-list-item--activated {
   background-color: rgba(#C54573, 0.15);
 }
