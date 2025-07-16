@@ -5,4 +5,6 @@
 /* Highlight active nav item using the app accent */
 :host ::ng-deep .mat-mdc-nav-list .mdc-list-item--activated {
   background-color: rgba(#C54573, 0.15);
+  --mdc-list-list-item-hover-state-layer-color: #C54573;
+  --mdc-list-list-item-focus-state-layer-color: #C54573;
 }

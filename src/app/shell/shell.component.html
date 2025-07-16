@@ -7,16 +7,20 @@
     </mat-toolbar>
 
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active"
+         #rlaDash="routerLinkActive" [activated]="rlaDash.isActive">
         <mat-icon>insights</mat-icon> Panel
       </a>
-      <a mat-list-item routerLink="/students" routerLinkActive="active">
+      <a mat-list-item routerLink="/students" routerLinkActive="active"
+         #rlaStudents="routerLinkActive" [activated]="rlaStudents.isActive">
         <mat-icon>group</mat-icon> Estudiantes
       </a>
-      <a mat-list-item routerLink="/courses" routerLinkActive="active">
+      <a mat-list-item routerLink="/courses" routerLinkActive="active"
+         #rlaCourses="routerLinkActive" [activated]="rlaCourses.isActive">
         <mat-icon>school</mat-icon> Cursos
       </a>
-      <a mat-list-item routerLink="/payments" routerLinkActive="active">
+      <a mat-list-item routerLink="/payments" routerLinkActive="active"
+         #rlaPayments="routerLinkActive" [activated]="rlaPayments.isActive">
         <mat-icon>credit_card</mat-icon> Pagos
       </a>
     </mat-nav-list>
