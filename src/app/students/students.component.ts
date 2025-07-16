@@ -60,7 +60,7 @@ export class StudentsComponent {
       createdAt: Date.now()
     };
     this.studentSvc.add(student);
-    this.sb.open('Student registered!', '', { duration: 2000, panelClass: 'snack-fixed' });
+    this.sb.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
     this.form.reset();
   }
 }
