@@ -30,6 +30,7 @@
 <!-- list -->
 <h3>Alumnas registradas</h3>
 
+<div class="table-container">
 <table mat-table [dataSource]="(students$ | async) || []" class="mat-elevation-z1">
 
   <ng-container matColumnDef="fullName">
@@ -62,3 +63,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row        *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+</div>

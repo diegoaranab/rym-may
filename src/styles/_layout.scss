@@ -10,6 +10,7 @@ $space-3: clamp(1rem,   1.6vw, 2rem);   // 16‑32 px
   max-width: 80rem;                     // 1280 px
   margin-inline: auto;
   padding-inline: $space-2;
+  box-sizing: border-box;
 }
 
 /* Fluid typography helper -------------------------------------------------- */
