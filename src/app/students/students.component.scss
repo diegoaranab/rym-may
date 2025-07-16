@@ -10,6 +10,8 @@
 }
 
 .mat-form-field { width: 100%; }
+
+.table-container { overflow-x: auto; }
 table { width: 100%; }
 
 @container style(max-width: 480px) {
