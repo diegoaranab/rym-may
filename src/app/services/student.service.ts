@@ -20,6 +20,16 @@ export class StudentService {
   /** util for demo edit/remove if needed later */
   update(list: Student[]) { this.persist(list); }
 
+  edit(student: Student) {
+    const next = this.store$.value.map(s => s.id === student.id ? student : s);
+    this.persist(next);
+  }
+
+  remove(id: string) {
+    const next = this.store$.value.filter(s => s.id !== id);
+    this.persist(next);
+  }
+
 
   // ---------- private ----------
   private persist(list: Student[]) {
