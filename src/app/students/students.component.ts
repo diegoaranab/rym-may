@@ -33,8 +33,8 @@ import { AsyncPipe } from '@angular/common';
 })
 export class StudentsComponent {
 
-  displayedColumnsHandset = ['fullName','courseId','factura'] as const;
-  displayedColumnsDesktop = ['fullName','phone','email','courseId','paidDeposit','factura'] as const;
+  displayedColumnsHandset = ['fullName','courseId','factura','acciones'] as const;
+  displayedColumnsDesktop = ['fullName','phone','email','courseId','paidDeposit','factura','acciones'] as const;
   displayedColumns = this.bp.isMatched(Breakpoints.Handset)
     ? this.displayedColumnsHandset : this.displayedColumnsDesktop;
 
@@ -74,5 +74,26 @@ export class StudentsComponent {
     this.studentSvc.add(student);
     this.sb.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
     this.form.reset();
+  }
+
+  editar(alumna: Student) {
+    const form = this.fb.group({
+      fullName: [alumna.fullName, [Validators.required, Validators.minLength(3)]],
+      phone:    [alumna.phone, Validators.required],
+      email:    [alumna.email, [Validators.email]],
+      courseId: [alumna.courseId, Validators.required],
+      paidDeposit: [alumna.paidDeposit]
+    });
+
+    this.dialog.open(StudentEditDialogComponent, { data: form, autoFocus: false })
+      .afterClosed()
+      .subscribe(res => {
+        if (res) this.studentSvc.edit({ ...alumna, ...res });
+      });
+  }
+
+  eliminar(id: string) {
+    const ref = this.dialog.open(ConfirmDialogComponent, { data: '¿Eliminar alumna?', autoFocus: false });
+    ref.afterClosed().subscribe(ok => { if (ok) this.studentSvc.remove(id); });
   }
 }

@@ -1,0 +1,19 @@
+@use '../../styles/layout';
+
+.course-form {
+  display: grid;
+  gap: layout.$space-2;
+  width: 320px;
+}
+
+.preview {
+  width: 100%;
+  height: auto;
+  margin-block-end: layout.$space-2;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: layout.$space-1;
+}

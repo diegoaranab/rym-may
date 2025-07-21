@@ -1,7 +1,9 @@
 <h2 class="titulo" [class.handset]="isHandset">Nuestros cursos</h2>
-
-<section class="grid">
-  <mat-card class="curso" *ngFor="let c of cursos">
+<button mat-fab color="accent" class="fab" aria-label="Nuevo curso" (click)="nuevo()">
+  <mat-icon>add</mat-icon>
+</button>
+<section class="grid slider">
+  <mat-card class="curso" *ngFor="let c of cursos$ | async">
     <img mat-card-image [src]="c.imagen" [alt]="c.nombre" />
     <mat-card-header>
       <mat-card-title>{{ c.nombre }}</mat-card-title>
@@ -14,6 +16,13 @@
 
     <mat-card-actions>
       <button mat-raised-button color="accent">Inscribirme</button>
+      <span class="grow"></span>
+      <button mat-icon-button aria-label="Editar curso" (click)="editar(c)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Eliminar curso" (click)="eliminar(c.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 </section>
