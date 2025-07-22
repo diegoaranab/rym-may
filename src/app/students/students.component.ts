@@ -13,8 +13,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
+import { StudentEditDialogComponent } from '../dialogs/student-edit-dialog/student-edit-dialog.component';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 
@@ -26,7 +28,7 @@ import { AsyncPipe } from '@angular/common';
     MatFormFieldModule, MatInputModule,
     MatCheckboxModule, MatButtonModule,
     MatTableModule, MatSnackBarModule,
-    MatIconModule
+    MatIconModule, MatDialogModule
   ],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
@@ -76,24 +78,20 @@ export class StudentsComponent {
     this.form.reset();
   }
 
-  editar(alumna: Student) {
-    const form = this.fb.group({
-      fullName: [alumna.fullName, [Validators.required, Validators.minLength(3)]],
-      phone:    [alumna.phone, Validators.required],
-      email:    [alumna.email, [Validators.email]],
-      courseId: [alumna.courseId, Validators.required],
-      paidDeposit: [alumna.paidDeposit]
+  editar(row: Student) {
+    this.dialog.open(StudentEditDialogComponent, {
+      data: { ...row },
+      autoFocus: false
+    }).afterClosed().subscribe(result => {
+      if (result) this.studentSvc.edit(result as Student);
     });
-
-    this.dialog.open(StudentEditDialogComponent, { data: form, autoFocus: false })
-      .afterClosed()
-      .subscribe(res => {
-        if (res) this.studentSvc.edit({ ...alumna, ...res });
-      });
   }
 
-  eliminar(id: string) {
-    const ref = this.dialog.open(ConfirmDialogComponent, { data: '¿Eliminar alumna?', autoFocus: false });
-    ref.afterClosed().subscribe(ok => { if (ok) this.studentSvc.remove(id); });
+  eliminar(row: Student) {
+    this.dialog.open(ConfirmDialogComponent, {
+      data: { mensaje: '¿Eliminar este registro?' }
+    }).afterClosed().subscribe(ok => {
+      if (ok) this.studentSvc.remove(row.id);
+    });
   }
 }

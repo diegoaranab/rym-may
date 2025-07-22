@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Editar alumna</h2>
+<form [formGroup]="form" (ngSubmit)="guardar()" class="student-form">
+  <label>
+    Nombre completo
+    <input formControlName="fullName" />
+  </label>
+  <label>
+    Teléfono
+    <input formControlName="phone" />
+  </label>
+  <label>
+    Correo electrónico
+    <input formControlName="email" />
+  </label>
+  <label>
+    ID del curso
+    <input formControlName="courseId" />
+  </label>
+  <label>
+    <input type="checkbox" formControlName="paidDeposit" /> Depósito pagado
+  </label>
+  <div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>
