@@ -1,19 +1,36 @@
 @use '../../../styles/layout';
 
-.course-form {
+.dialog-title{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.6rem);
+  color: #1D1E5B;
+}
+.dialog-content{ padding: layout.$space-2; }
+
+.grid{
   display: grid;
   gap: layout.$space-2;
-  width: 320px;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+}
+.full-row{ grid-column: 1 / -1; }
+
+.uploader{
+  display: flex; gap: layout.$space-2; align-items: center;
+  .preview{
+    width: 160px; height: 100px; overflow: hidden; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    img{ width:100%; height:100%; object-fit:cover; display:block; }
+  }
 }
 
-.preview {
-  width: 100%;
-  height: auto;
-  margin-block-end: layout.$space-2;
+@media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
+
+.dialog-actions{
+  position: sticky; bottom: 0; background: #fff;
+  padding: layout.$space-2; margin: 0 -24px -8px;
+  border-top: 1px solid rgba(0,0,0,.06);
 }
 
-.acciones {
-  display: flex;
-  justify-content: flex-end;
-  gap: layout.$space-1;
-}
+/* subtle field affordance */
+.mat-mdc-form-field:hover{ filter: brightness(.98); transition: filter .15s; }

@@ -28,13 +28,23 @@ export class CoursesComponent {
   ) {}
 
   nuevo() {
-    this.dialog.open(CourseFormComponent, { autoFocus: false })
+    this.dialog.open(CourseFormComponent, {
+      data: null,
+      width: '720px',
+      maxWidth: '95vw',
+      autoFocus: true
+    })
       .afterClosed()
       .subscribe(res => { if (res) this.courseSvc.create({ ...res, id: uuid() }); });
   }
 
   editar(c: Course) {
-    this.dialog.open(CourseFormComponent, { data: c, autoFocus: false })
+    this.dialog.open(CourseFormComponent, {
+      data: c,
+      width: '720px',
+      maxWidth: '95vw',
+      autoFocus: true
+    })
       .afterClosed()
       .subscribe(res => { if (res) this.courseSvc.update(res); });
   }
