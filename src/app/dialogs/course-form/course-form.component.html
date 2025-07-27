@@ -1,34 +1,52 @@
-<form [formGroup]="form" class="course-form" (ngSubmit)="save()">
-  <mat-form-field appearance="outline">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="nombre" required />
-  </mat-form-field>
+<h2 mat-dialog-title class="dialog-title">Curso</h2>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Descripci\u00f3n</mat-label>
-    <textarea matInput formControlName="descripcion" rows="3" required></textarea>
-  </mat-form-field>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" (ngSubmit)="save()" class="grid">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Nombre*</mat-label>
+      <input matInput formControlName="nombre" />
+      <mat-error *ngIf="form.controls.nombre.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.controls.nombre.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Duraci\u00f3n</mat-label>
-    <input matInput formControlName="duracion" required />
-  </mat-form-field>
+    <mat-form-field class="full-row" appearance="outline" color="accent">
+      <mat-label>Descripción*</mat-label>
+      <textarea matInput rows="3" formControlName="descripcion"></textarea>
+      <mat-error *ngIf="form.controls.descripcion.hasError('required')">Requerida</mat-error>
+      <mat-error *ngIf="form.controls.descripcion.hasError('minlength')">Mínimo 10 caracteres</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Precio</mat-label>
-    <input matInput formControlName="precio" required />
-  </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Duración*</mat-label>
+      <input matInput formControlName="duracion" placeholder="p. ej., 2 días" />
+      <mat-error *ngIf="form.controls.duracion.hasError('required')">Requerida</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Imagen URL</mat-label>
-    <input matInput formControlName="imagen" pattern="https?://.*" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Precio*</mat-label>
+      <input matInput formControlName="precio" placeholder="MX$ 3 500" />
+      <mat-error *ngIf="form.controls.precio.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
 
-  <input type="file" accept="image/*" (change)="fileSelected($event)" />
-  <img *ngIf="preview" [src]="preview" alt="Previsualizaci\u00f3n" class="preview" />
+    <mat-form-field appearance="outline" color="accent" class="full-row">
+      <mat-label>Imagen URL</mat-label>
+      <input matInput formControlName="imagen" (input)="preview = form.value.imagen || null" />
+      <mat-hint>También puedes cargar una imagen del dispositivo</mat-hint>
+    </mat-form-field>
 
-  <div class="acciones">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
-  </div>
-</form>
+    <div class="uploader full-row">
+      <button mat-stroked-button type="button" (click)="fileInput.click()">
+        <mat-icon>upload</mat-icon> Elegir archivo
+      </button>
+      <input #fileInput type="file" accept="image/*" (change)="onFileSelected(fileInput)" hidden />
+      <div class="preview" *ngIf="preview">
+        <img [src]="preview" alt="Previsualización" />
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">Guardar</button>
+</mat-dialog-actions>
