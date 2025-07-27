@@ -1,0 +1,20 @@
+@use '../../../styles/layout';
+
+.dialog-title{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.6rem);
+  color: #1D1E5B;
+}
+.dialog-content{ padding: layout.$space-2; }
+
+.grid{
+  display: grid;
+  gap: layout.$space-2;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+}
+.full-row{ grid-column: 1 / -1; }
+
+@media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
+
+.dialog-actions{ padding: layout.$space-2; }

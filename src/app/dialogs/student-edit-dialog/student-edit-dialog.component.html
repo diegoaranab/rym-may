@@ -1,26 +1,37 @@
-<h2 mat-dialog-title>Editar alumna</h2>
-<form [formGroup]="form" (ngSubmit)="guardar()" class="student-form">
-  <label>
-    Nombre completo
-    <input formControlName="fullName" />
-  </label>
-  <label>
-    Teléfono
-    <input formControlName="phone" />
-  </label>
-  <label>
-    Correo electrónico
-    <input formControlName="email" />
-  </label>
-  <label>
-    ID del curso
-    <input formControlName="courseId" />
-  </label>
-  <label>
-    <input type="checkbox" formControlName="paidDeposit" /> Depósito pagado
-  </label>
-  <div mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-button color="primary" type="submit">Guardar</button>
-  </div>
-</form>
+<h2 mat-dialog-title class="dialog-title">Editar alumna</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="grid">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Nombre completo</mat-label>
+      <input matInput formControlName="fullName" autocomplete="name" />
+      <mat-error *ngIf="form.controls.fullName.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.controls.fullName.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone" inputmode="tel" />
+      <mat-error *ngIf="form.controls.phone.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" autocomplete="email" />
+      <mat-error *ngIf="form.controls.email.invalid">Correo no válido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>ID del curso</mat-label>
+      <input matInput formControlName="courseId" />
+      <mat-error *ngIf="form.controls.courseId.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="paidDeposit" class="full-row">Depósito pagado</mat-checkbox>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="accent" (click)="guardar()" [disabled]="form.invalid">Guardar</button>
+</mat-dialog-actions>

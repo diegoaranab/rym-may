@@ -16,10 +16,9 @@
   flex-direction: column;
   height: 100%;
   img { height: 160px; object-fit: cover; }
-  mat-card-header {
-    background-color: rgb(29,30,91);
-    color: #fff;
-    .mat-card-subtitle { color: #fff; }
+  mat-card-header{
+    background-color:#1D1E5B; color:#fff;
+    .mat-mdc-card-subtitle{ color:#fff; opacity:.95; }
   }
   mat-card-content {
     flex: 1 1 auto;

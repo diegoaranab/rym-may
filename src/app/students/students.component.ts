@@ -81,7 +81,9 @@ export class StudentsComponent {
   editar(row: Student) {
     this.dialog.open(StudentEditDialogComponent, {
       data: { ...row },
-      autoFocus: false
+      width: '720px',
+      maxWidth: '92vw',
+      autoFocus: true
     }).afterClosed().subscribe(result => {
       if (result) this.studentSvc.edit(result as Student);
     });
