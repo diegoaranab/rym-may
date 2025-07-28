@@ -16,10 +16,17 @@
   .mat-mdc-dialog-content,
   .dialog-content {
     display: block;
-    padding: layout.$space-2;
+    /* Extra top padding prevents outline labels from clipping under the title */
+    padding: layout.$space-3 layout.$space-2 layout.$space-2;
     max-height: min(72vh, 72dvh);
     overflow: auto;
     scrollbar-gutter: stable both-edges;
+  }
+
+  /* Guarantee extra clearance for the very first field in the form/grid */
+  .dialog-content form > .mat-mdc-form-field:first-of-type,
+  .dialog-content .grid > .mat-mdc-form-field:first-of-type {
+    margin-top: layout.$space-1;
   }
 
   /* Sticky action bar so primary buttons are always visible */
