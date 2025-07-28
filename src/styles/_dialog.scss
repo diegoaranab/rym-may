@@ -18,8 +18,10 @@
     display: block;
     /* Extra top padding prevents outline labels from clipping under the title */
     padding: layout.$space-3 layout.$space-2 layout.$space-2;
-    max-height: min(72vh, 72dvh);
-    overflow: auto;
+    max-height: min(78vh, 78dvh);   /* a bit taller than before */
+    overflow: auto;                 /* scroll only here */
+    overflow-x: hidden;             /* never side-scroll */
+    box-sizing: border-box;
     scrollbar-gutter: stable both-edges;
   }
 
@@ -35,13 +37,14 @@
     position: sticky;
     bottom: 0;
     background: #fff;
-    padding: layout.$space-2;
-    margin: 0 -24px -8px;
+    padding: layout.$space-2;       /* no negative margins */
+    margin: 0;                      /* ← important: prevents horizontal overflow */
     border-top: 1px solid rgba(0,0,0,.06);
     z-index: 1;
+    box-sizing: border-box;
   }
 
   /* Field rhythm */
-  .mat-mdc-form-field { width: 100%; }
+  .mat-mdc-form-field { width: 100%; min-width: 0; }
   .mat-mdc-form-field + .mat-mdc-form-field { margin-top: layout.$space-2; }
 }
