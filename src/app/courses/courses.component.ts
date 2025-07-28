@@ -33,9 +33,11 @@ export class CoursesComponent {
   nuevo() {
     this.dialog.open(CourseFormComponent, {
       data: null,
-      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
-      width: '720px',
+      panelClass: 'rm-dialog',
+      backdropClass: 'rm-backdrop-blur',
+      width: 'min(720px, 95vw)',   // cap width to viewport
       maxWidth: '95vw',
+      maxHeight: '88vh',           // let content scroll inside
       autoFocus: true
     })
       .afterClosed()
@@ -50,9 +52,11 @@ export class CoursesComponent {
   editar(c: Course) {
     this.dialog.open(CourseFormComponent, {
       data: c,
-      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
-      width: '720px',
+      panelClass: 'rm-dialog',
+      backdropClass: 'rm-backdrop-blur',
+      width: 'min(720px, 95vw)',   // cap width to viewport
       maxWidth: '95vw',
+      maxHeight: '88vh',           // let content scroll inside
       autoFocus: true
     })
       .afterClosed()
@@ -69,8 +73,9 @@ export class CoursesComponent {
       data: { titulo: 'Confirmar', mensaje: '¿Eliminar este curso?' },
       panelClass: 'rm-dialog',
       backdropClass: 'rm-backdrop-blur',
-      width: '480px',
+      width: 'min(720px, 95vw)',
       maxWidth: '95vw',
+      maxHeight: '88vh',
       autoFocus: true
     }).afterClosed().subscribe(ok => {
       if (ok) {

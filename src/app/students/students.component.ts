@@ -81,9 +81,11 @@ export class StudentsComponent {
   editar(row: Student) {
     this.dialog.open(StudentEditDialogComponent, {
       data: { ...row },
-      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
-      width: '720px',
+      panelClass: 'rm-dialog',
+      backdropClass: 'rm-backdrop-blur',
+      width: 'min(720px, 95vw)',   // cap width to viewport
       maxWidth: '95vw',
+      maxHeight: '88vh',           // let content scroll inside
       autoFocus: true
     }).afterClosed().subscribe(result => {
       if (result) this.studentSvc.edit(result as Student);
@@ -95,8 +97,9 @@ export class StudentsComponent {
       data: { titulo: 'Confirmar', mensaje: '¿Eliminar este registro?' },
       panelClass: 'rm-dialog',
       backdropClass: 'rm-backdrop-blur',
-      width: '480px',
+      width: 'min(720px, 95vw)',
       maxWidth: '95vw',
+      maxHeight: '88vh',
       autoFocus: true
     }).afterClosed().subscribe(ok => {
       if (ok) {
