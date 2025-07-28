@@ -54,7 +54,7 @@ export class StudentsComponent {
   constructor(
     private fb: FormBuilder,
     private studentSvc: StudentService,
-    private sb: MatSnackBar,
+    private snack: MatSnackBar,
     private dialog: MatDialog,
     private bp: BreakpointObserver
   ) {}
@@ -74,7 +74,7 @@ export class StudentsComponent {
       createdAt: Date.now()
     };
     this.studentSvc.add(student);
-    this.sb.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
+    this.snack.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
     this.form.reset();
   }
 
@@ -92,9 +92,22 @@ export class StudentsComponent {
 
   eliminar(row: Student) {
     this.dialog.open(ConfirmDialogComponent, {
-      data: { mensaje: '¿Eliminar este registro?' }
+      data: { titulo: 'Confirmar', mensaje: '¿Eliminar este registro?' },
+      panelClass: 'rm-dialog',
+      backdropClass: 'rm-backdrop-blur',
+      width: '480px',
+      maxWidth: '95vw',
+      autoFocus: true
     }).afterClosed().subscribe(ok => {
-      if (ok) this.studentSvc.remove(row.id);
+      if (ok) {
+        this.studentSvc.remove(row.id);
+        this.snack.open('Alumna eliminada', '', {
+          duration: 1800,
+          panelClass: 'snack-warn',
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+      }
     });
   }
 }

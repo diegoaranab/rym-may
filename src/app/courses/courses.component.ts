@@ -8,6 +8,7 @@ import { Course } from '../models/course.model';
 import { CourseService } from '../services/course.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { v4 as uuid } from 'uuid';
 import { CourseFormComponent } from '../dialogs/course-form/course-form.component';
 
@@ -64,6 +65,23 @@ export class CoursesComponent {
   }
 
   eliminar(id: string) {
-    this.courseSvc.remove(id);
+    this.dialog.open(ConfirmDialogComponent, {
+      data: { titulo: 'Confirmar', mensaje: '¿Eliminar este curso?' },
+      panelClass: 'rm-dialog',
+      backdropClass: 'rm-backdrop-blur',
+      width: '480px',
+      maxWidth: '95vw',
+      autoFocus: true
+    }).afterClosed().subscribe(ok => {
+      if (ok) {
+        this.courseSvc.remove(id);
+        this.snack.open('Curso eliminado', '', {
+          duration: 1800,
+          panelClass: 'snack-warn',
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+      }
+    });
   }
 }

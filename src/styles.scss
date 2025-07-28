@@ -12,4 +12,28 @@
 
 /* Global resets */
 html, body { height: 100%; }
-body       { margin: 0; font-family: 'Poppins', Roboto, sans-serif; }
+body { margin: 0; font-family: 'Poppins', Roboto, sans-serif; }
+
+/* ---- Dialog backdrop blur ---- */
+.cdk-overlay-backdrop.rm-backdrop-blur {
+  /* grey, slightly darkened scrim + blur */
+  background: rgba(29, 30, 91, 0.25) !important;  /* brand blue tint */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ---- Brand snackbars (MDC) ---- */
+.mat-mdc-snack-bar-container.snack-success .mdc-snackbar__surface {
+  background: #1D1E5B;  /* primary */
+  color: #fff;
+}
+.mat-mdc-snack-bar-container.snack-warn .mdc-snackbar__surface {
+  background: #C54573;  /* accent for destructive/alert */
+  color: #fff;
+}
+/* optional: rounded shape & slight elevation */
+.mat-mdc-snack-bar-container.snack-success .mdc-snackbar__surface,
+.mat-mdc-snack-bar-container.snack-warn .mdc-snackbar__surface {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.24);
+}
