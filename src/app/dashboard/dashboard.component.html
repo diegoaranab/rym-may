@@ -1,4 +1,52 @@
-<h2>Panel</h2>
-<button mat-raised-button color="accent">
-  Botón destacado
-</button>
+<section class="dashboard">
+  <!-- KPI cards -->
+  <div class="kpis" *ngIf="(students | async) as st && (courses | async) as cs">
+    <mat-card class="kpi">
+      <mat-icon>group</mat-icon>
+      <div class="val">{{ st.length }}</div>
+      <div class="lbl">Alumnas registradas</div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>verified</mat-icon>
+      <div class="val">{{ st.filter(s => s.paidDeposit).length }}</div>
+      <div class="lbl">Depósitos pagados</div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>school</mat-icon>
+      <div class="val">{{ cs.length }}</div>
+      <div class="lbl">Cursos activos</div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>event</mat-icon>
+      <div class="val">
+        {{
+          st.filter(s => new Date(s.createdAt) >= (d=>{d.setDate(d.getDate()-30);return d;})(new Date())).length
+        }}
+      </div>
+      <div class="lbl">Nuevas (30 días)</div>
+    </mat-card>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Charts -->
+  <div class="charts" *ngIf="(students | async) as st && (courses | async) as cs">
+    <mat-card class="chart">
+      <h3>Alumnas por curso</h3>
+      <div echarts [options]="buildCharts(st, cs).bar" class="echart"></div>
+    </mat-card>
+
+    <mat-card class="chart">
+      <h3>Inscripciones por semana</h3>
+      <div echarts [options]="buildCharts(st, cs).line" class="echart"></div>
+    </mat-card>
+
+    <mat-card class="chart">
+      <h3>Depósitos</h3>
+      <div echarts [options]="buildCharts(st, cs).pie" class="echart"></div>
+    </mat-card>
+  </div>
+</section>
