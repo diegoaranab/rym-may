@@ -81,8 +81,9 @@ export class StudentsComponent {
   editar(row: Student) {
     this.dialog.open(StudentEditDialogComponent, {
       data: { ...row },
+      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
       width: '720px',
-      maxWidth: '92vw',
+      maxWidth: '95vw',
       autoFocus: true
     }).afterClosed().subscribe(result => {
       if (result) this.studentSvc.edit(result as Student);
