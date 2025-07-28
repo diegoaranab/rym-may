@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Course } from '../models/course.model';
 import { CourseService } from '../services/course.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -13,7 +14,7 @@ import { CourseFormComponent } from '../dialogs/course-form/course-form.componen
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
@@ -24,7 +25,8 @@ export class CoursesComponent {
   constructor(
     private bp: BreakpointObserver,
     private courseSvc: CourseService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) {}
 
   nuevo() {
@@ -36,7 +38,12 @@ export class CoursesComponent {
       autoFocus: true
     })
       .afterClosed()
-      .subscribe(res => { if (res) this.courseSvc.create({ ...res, id: uuid() }); });
+      .subscribe(res => {
+        if (res) {
+          this.courseSvc.create({ ...res, id: uuid() });
+          this.snack.open('Curso creado', '', { duration: 1800 });
+        }
+      });
   }
 
   editar(c: Course) {
@@ -48,7 +55,12 @@ export class CoursesComponent {
       autoFocus: true
     })
       .afterClosed()
-      .subscribe(res => { if (res) this.courseSvc.update(res); });
+      .subscribe(res => {
+        if (res) {
+          this.courseSvc.update(res);
+          this.snack.open('Curso actualizado', '', { duration: 1800 });
+        }
+      });
   }
 
   eliminar(id: string) {
