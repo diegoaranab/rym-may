@@ -30,6 +30,7 @@ export class CoursesComponent {
   nuevo() {
     this.dialog.open(CourseFormComponent, {
       data: null,
+      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
       width: '720px',
       maxWidth: '95vw',
       autoFocus: true
@@ -41,6 +42,7 @@ export class CoursesComponent {
   editar(c: Course) {
     this.dialog.open(CourseFormComponent, {
       data: c,
+      panelClass: 'rm-dialog',      // ← apply brand dialog spacing
       width: '720px',
       maxWidth: '95vw',
       autoFocus: true
