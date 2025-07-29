@@ -1,52 +1,53 @@
 <section class="dashboard">
-  <!-- KPI cards -->
-  <div class="kpis" *ngIf="(students | async) as st && (courses | async) as cs">
-    <mat-card class="kpi">
-      <mat-icon>group</mat-icon>
-      <div class="val">{{ st.length }}</div>
-      <div class="lbl">Alumnas registradas</div>
-    </mat-card>
+  <!-- Resolve streams separately to avoid invalid aliasing -->
+  <ng-container *ngIf="students | async as st">
+    <ng-container *ngIf="courses  | async as cs">
 
-    <mat-card class="kpi">
-      <mat-icon>verified</mat-icon>
-      <div class="val">{{ st.filter(s => s.paidDeposit).length }}</div>
-      <div class="lbl">Depósitos pagados</div>
-    </mat-card>
+      <!-- KPI cards -->
+      <div class="kpis">
+        <mat-card class="kpi">
+          <mat-icon>group</mat-icon>
+          <div class="val">{{ st.length }}</div>
+          <div class="lbl">Alumnas registradas</div>
+        </mat-card>
 
-    <mat-card class="kpi">
-      <mat-icon>school</mat-icon>
-      <div class="val">{{ cs.length }}</div>
-      <div class="lbl">Cursos activos</div>
-    </mat-card>
+        <mat-card class="kpi">
+          <mat-icon>verified</mat-icon>
+          <div class="val">{{ countPaid(st) }}</div>
+          <div class="lbl">Depósitos pagados</div>
+        </mat-card>
 
-    <mat-card class="kpi">
-      <mat-icon>event</mat-icon>
-      <div class="val">
-        {{
-          st.filter(s => new Date(s.createdAt) >= (d=>{d.setDate(d.getDate()-30);return d;})(new Date())).length
-        }}
+        <mat-card class="kpi">
+          <mat-icon>calendar_today</mat-icon>
+          <div class="val">{{ countLast30Days(st) }}</div>
+          <div class="lbl">Inscripciones (30 días)</div>
+        </mat-card>
+
+        <mat-card class="kpi">
+          <mat-icon>school</mat-icon>
+          <div class="val">{{ cs.length }}</div>
+          <div class="lbl">Cursos publicados</div>
+        </mat-card>
       </div>
-      <div class="lbl">Nuevas (30 días)</div>
-    </mat-card>
-  </div>
 
-  <mat-divider></mat-divider>
+      <!-- Charts -->
+      <div class="charts">
+        <mat-card class="chart">
+          <h3>Alumnas por curso</h3>
+          <div echarts [options]="buildCharts(st, cs).bar" class="echart"></div>
+        </mat-card>
 
-  <!-- Charts -->
-  <div class="charts" *ngIf="(students | async) as st && (courses | async) as cs">
-    <mat-card class="chart">
-      <h3>Alumnas por curso</h3>
-      <div echarts [options]="buildCharts(st, cs).bar" class="echart"></div>
-    </mat-card>
+        <mat-card class="chart">
+          <h3>Inscripciones por semana</h3>
+          <div echarts [options]="buildCharts(st, cs).line" class="echart"></div>
+        </mat-card>
 
-    <mat-card class="chart">
-      <h3>Inscripciones por semana</h3>
-      <div echarts [options]="buildCharts(st, cs).line" class="echart"></div>
-    </mat-card>
+        <mat-card class="chart">
+          <h3>Depósitos</h3>
+          <div echarts [options]="buildCharts(st, cs).pie" class="echart"></div>
+        </mat-card>
+      </div>
 
-    <mat-card class="chart">
-      <h3>Depósitos</h3>
-      <div echarts [options]="buildCharts(st, cs).pie" class="echart"></div>
-    </mat-card>
-  </div>
+    </ng-container>
+  </ng-container>
 </section>
