@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { StudentService } from '../services/student.service';
 import { CourseService } from '../services/course.service';
+import { Student } from '../models/student.model';
+import { Course } from '../models/course.model';
 import { precioToNumber, startOfWeek, weeksBack } from '../utils/metrics';
 
 // ngx-echarts standalone directive
@@ -30,11 +32,24 @@ export class DashboardComponent {
   students = this.studentsSvc.students$;
   courses  = this.coursesSvc.courses$;
 
+  countPaid(students: Student[]): number {
+    return (students ?? []).filter(s => !!(s as any).paidDeposit).length;
+  }
+
+  countLast30Days(students: Student[]): number {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 30);
+    return (students ?? []).filter(s => {
+      const d = new Date((s as any).createdAt);
+      return !isNaN(d.getTime()) && d >= cutoff;
+    }).length;
+  }
+
   // Derived KPIs (computed inside template with | async in a minimal way)
   // We’ll also compute chart options when async data arrives (in template via (echartsInit)? not required; we use getters)
 
   // Build chart options from arrays
-  buildCharts(students: any[], courses: any[]): {bar:EChartsOption, line:EChartsOption, pie:EChartsOption} {
+  buildCharts(students: Student[], courses: Course[]): { bar: EChartsOption; line: EChartsOption; pie: EChartsOption } {
     // 1) Alumnas por curso (bar)
     const byCourseMap = new Map<string, number>();
     courses.forEach(c => byCourseMap.set(c.id, 0));
