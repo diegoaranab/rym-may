@@ -34,17 +34,17 @@
       <div class="charts">
         <mat-card class="chart">
           <h3>Alumnas por curso</h3>
-          <div echarts [options]="buildCharts(st, cs).bar" class="echart"></div>
+          <div echarts [options]="vm.charts.bar" class="echart"></div>
         </mat-card>
 
         <mat-card class="chart">
           <h3>Inscripciones por semana</h3>
-          <div echarts [options]="buildCharts(st, cs).line" class="echart"></div>
+          <div echarts [options]="vm.charts.line" class="echart"></div>
         </mat-card>
 
         <mat-card class="chart">
           <h3>Depósitos</h3>
-          <div echarts [options]="buildCharts(st, cs).pie" class="echart"></div>
+          <div echarts [options]="vm.charts.pie" class="echart"></div>
         </mat-card>
       </div>
 

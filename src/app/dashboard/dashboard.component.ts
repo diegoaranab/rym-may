@@ -1,4 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { combineLatest } from 'rxjs';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +28,14 @@ import type { EChartsOption } from 'echarts';
 export class DashboardComponent {
   private studentsSvc = inject(StudentService);
   private coursesSvc  = inject(CourseService);
+
+  vm = { charts: { bar: {} as EChartsOption, line: {} as EChartsOption, pie: {} as EChartsOption } };
+
+  constructor() {
+    combineLatest([this.studentsSvc.students$, this.coursesSvc.courses$]).subscribe(([st, cs]) => {
+      this.vm.charts = this.buildCharts(st, cs);
+    });
+  }
 
   // Snapshot data (services expose BehaviorSubjects)
   students = this.studentsSvc.students$;
