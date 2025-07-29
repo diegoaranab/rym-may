@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --no-ssr -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:rym-may": "node dist/rym-may/server/server.mjs"
+    "serve:ssr:rym-may": "node dist/rym-may/server/server.mjs",
+    "build:pages": "ng build --output-path docs --base-href /rym-may/",
+    "postbuild:pages": "cp docs/index.html docs/404.html"
   },
   "private": true,
   "dependencies": {

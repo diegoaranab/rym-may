@@ -1,7 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideEchartsCore } from 'ngx-echarts';
-import * as echarts from 'echarts';
+import { provideEcharts } from 'ngx-echarts';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -12,6 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideEchartsCore({ echarts }),
+    provideEcharts(),
   ]
 };
