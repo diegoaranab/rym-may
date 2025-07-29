@@ -53,7 +53,9 @@ export class DashboardComponent {
     // 1) Alumnas por curso (bar)
     const byCourseMap = new Map<string, number>();
     courses.forEach(c => byCourseMap.set(c.id, 0));
-    students.forEach(s => byCourseMap.set(s.courseId, (byCourseMap.get(s.courseId) || 0) + 1));
+    students.forEach(s => s.courseIds.forEach(id =>
+      byCourseMap.set(id, (byCourseMap.get(id) || 0) + 1)
+    ));
     const barCats = courses.map(c => c.nombre);
     const barData = courses.map(c => byCourseMap.get(c.id) || 0);
 

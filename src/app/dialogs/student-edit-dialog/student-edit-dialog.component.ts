@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   standalone: true,
@@ -17,22 +19,25 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSelectModule,
   ],
   templateUrl: './student-edit-dialog.component.html',
   styleUrls: ['./student-edit-dialog.component.scss']
 })
 export class StudentEditDialogComponent {
+  courses$ = this.courseSvc.courses$;
   form = this.fb.group({
     fullName: [this.data?.fullName ?? '', [Validators.required, Validators.minLength(3)]],
     phone:    [this.data?.phone ?? '', [Validators.required]],
     email:    [this.data?.email ?? '', [Validators.email]],
-    courseId: [this.data?.courseId ?? '', [Validators.required]],
+    courseIds: [this.data?.courseIds ?? [], [Validators.required]],
     paidDeposit: [!!this.data?.paidDeposit]
   });
   constructor(
     private fb: FormBuilder,
     private ref: MatDialogRef<StudentEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private courseSvc: CourseService
   ) {}
   guardar(){ if (this.form.valid) this.ref.close({ ...this.data, ...this.form.value }); }
 }

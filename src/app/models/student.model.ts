@@ -3,7 +3,7 @@ export interface Student {
   fullName: string;
   phone: string;
   email: string;
-  courseId: string;
+  courseIds: string[];
   paidDeposit: boolean;
   createdAt: number;       // epoch
 }

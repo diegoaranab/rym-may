@@ -30,7 +30,7 @@
     "uuid": "^11.1.0",
     "zone.js": "~0.14.3",
     "echarts": "^5.5.0",
-    "ngx-echarts": "17.2.0"
+    "ngx-echarts": "^20.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.2",
