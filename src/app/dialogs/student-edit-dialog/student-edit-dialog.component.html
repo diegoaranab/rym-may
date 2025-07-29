@@ -22,9 +22,17 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" color="accent">
-      <mat-label>ID del curso</mat-label>
-      <input matInput formControlName="courseId" />
-      <mat-error *ngIf="form.controls.courseId.hasError('required')">Requerido</mat-error>
+      <mat-label>Curso(s)</mat-label>
+      <mat-select formControlName="courseIds" multiple>
+        <mat-select-trigger>
+          {{ (form.value.courseIds?.length || 0) }} seleccionado(s)
+        </mat-select-trigger>
+        <mat-option *ngFor="let c of (courses$ | async) || []" [value]="c.id">
+          {{ c.nombre }}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Puede seleccionar uno o varios cursos</mat-hint>
+      <mat-error *ngIf="form.controls.courseIds.hasError('required')">Requerido</mat-error>
     </mat-form-field>
 
     <mat-checkbox formControlName="paidDeposit" class="full-row">Depósito pagado</mat-checkbox>
