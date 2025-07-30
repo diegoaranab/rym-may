@@ -37,3 +37,58 @@
 @media (max-width: 1100px) {
   .charts { grid-template-columns: 1fr; }
 }
+
+/* ---------- Hover & focus motion for KPI and chart cards ---------- */
+
+/* Shared surface/elevation tokens */
+:root {
+  --rm-elev0: 0 1px 2px rgba(0,0,0,.06);
+  --rm-elev1: 0 4px 12px rgba(0,0,0,.10);
+  --rm-scale: 1.01;
+}
+
+/* Make cards feel tangible without implying click-through */
+.kpis .kpi,
+.charts .chart-card,
+.mat-mdc-card.panel {
+  will-change: transform, box-shadow;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 120ms ease,
+    border-color 120ms ease;
+  box-shadow: var(--rm-elev0);
+  border-radius: 14px; /* a bit softer corners */
+  background: #fff;
+}
+
+/* Hover: subtle lift + shadow; keep cursor default (not a button) */
+.kpis .kpi:hover,
+.charts .chart-card:hover,
+.mat-mdc-card.panel:hover {
+  transform: translateY(-2px) scale(var(--rm-scale));
+  box-shadow: var(--rm-elev1);
+}
+
+/* Keyboard accessibility: visible focus ring using brand accent */
+.kpis .kpi:focus-visible,
+.charts .chart-card:focus-visible,
+.mat-mdc-card.panel:focus-visible {
+  outline: 3px solid #E14D82; /* Rym May accent */
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .kpis .kpi,
+  .charts .chart-card,
+  .mat-mdc-card.panel {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* Optional: lighten icon pill slightly on hover for feedback */
+.kpis .kpi:hover .icon {
+  filter: brightness(1.03);
+}
