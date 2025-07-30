@@ -1,41 +1,41 @@
 <ng-container *ngIf="vm$ | async as vm">
   <!-- KPIs -->
   <section class="kpis">
-    <article class="kpi" tabindex="0">
+    <div class="panel kpi" tabindex="0">
       <div class="icon">👩‍🎓</div>
       <div class="val">{{ vm.students.length }}</div>
       <div class="label">Alumnas registradas</div>
-    </article>
+    </div>
 
-    <article class="kpi" tabindex="0">
+    <div class="panel kpi" tabindex="0">
       <div class="icon">✅</div>
       <div class="val">{{ depositsPaid(vm.students) }}</div>
       <div class="label">Depósitos pagados</div>
-    </article>
+    </div>
 
-    <article class="kpi" tabindex="0">
+    <div class="panel kpi" tabindex="0">
       <div class="icon">📅</div>
       <div class="val">{{ enrollmentsLast30Days(vm.students) }}</div>
       <div class="label">Inscripciones (30 días)</div>
-    </article>
+    </div>
 
-    <article class="kpi" tabindex="0">
+    <div class="panel kpi" tabindex="0">
       <div class="icon">🎓</div>
       <div class="val">{{ vm.courses.length }}</div>
       <div class="label">Cursos publicados</div>
-    </article>
+    </div>
   </section>
 
   <!-- Charts -->
-  <section class="charts">
-    <div class="chart-card" tabindex="0" aria-label="Gráfica de alumnas por curso">
-      <div echarts [options]="buildCharts(vm.students, vm.courses).bar" class="echart"></div>
-    </div>
-    <div class="chart-card" tabindex="0" aria-label="Inscripciones por semana">
-      <div echarts [options]="buildCharts(vm.students, vm.courses).line" class="echart"></div>
-    </div>
-    <div class="chart-card" tabindex="0" aria-label="Distribución de depósitos">
-      <div echarts [options]="buildCharts(vm.students, vm.courses).pie" class="echart"></div>
-    </div>
+    <section class="charts">
+      <div class="panel chart-card" tabindex="0" aria-label="Gráfica de alumnas por curso">
+        <div echarts [options]="buildCharts(vm.students, vm.courses).bar" class="echart"></div>
+      </div>
+      <div class="panel chart-card" tabindex="0" aria-label="Inscripciones por semana">
+        <div echarts [options]="buildCharts(vm.students, vm.courses).line" class="echart"></div>
+      </div>
+      <div class="panel chart-card" tabindex="0" aria-label="Distribución de depósitos">
+        <div echarts [options]="buildCharts(vm.students, vm.courses).pie" class="echart"></div>
+      </div>
   </section>
 </ng-container>
