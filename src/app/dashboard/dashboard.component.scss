@@ -11,8 +11,8 @@
 }
 
 
-.kpi .val   { font: 600 28px/1 'Poppins', system-ui; color: #1D1E5B; }
-.kpi .label { color: #6b7280; font-size: 14px; }
+  .kpi-card .val   { font: 600 28px/1 'Poppins', system-ui; color: #1D1E5B; }
+  .kpi-card .label { color: #6b7280; font-size: 14px; }
 
 .charts {
   display: grid;
@@ -32,63 +32,66 @@
   .charts { grid-template-columns: 1fr; }
 }
 
-
-/* Dashboard panels (KPIs & charts) */
-.panel {
+/* --- Dashboard card hover without tinting charts --- */
+.kpi-card,
+.chart-card {
   position: relative;
-  background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.06);
-  transition:
-    transform 180ms cubic-bezier(.2,.0,.2,1),
-    box-shadow 180ms cubic-bezier(.2,.0,.2,1),
-    filter 180ms cubic-bezier(.2,.0,.2,1);
-  will-change: transform;
-
-  /* State layer (Material 3-esque) */
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: rgba(197, 69, 115, 0.06); /* Rym May pink @ ~6% */
-    opacity: 0;
-    transition: opacity 180ms cubic-bezier(.2,.0,.2,1);
-    pointer-events: none;
-  }
-
-  &:hover::after,
-  &:focus-within::after {
-    opacity: 1;
-  }
-
-  &:hover,
-  &:focus-within {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 10px 24px rgba(29, 30, 91, 0.18); /* brand blue shadow tint */
-  }
+  overflow: hidden; /* ensures pseudo-element is clipped to card */
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
+  background: #fff;
 }
 
-/* Reduce motion or touch devices – don’t animate hover */
+/* Material state-layer inspired underlay (below content) */
+.kpi-card::before,
+.chart-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(197, 69, 115, 0.06);
+  opacity: 0;
+  z-index: 0;            /* under content */
+  transition: opacity 180ms ease;
+}
+
+.kpi-card:hover,
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08);
+}
+.kpi-card:hover::before,
+.chart-card:hover::before { opacity: 1; }
+
+/* Charts: keep surface white and above the state layer */
+.chart-surface {
+  position: relative;
+  z-index: 1;          /* above ::before underlay */
+  background: #fff;
+  border-radius: 12px;
+}
+.echart {
+  background: #fff;    /* defensive: if canvas is transparent, container stays white */
+  border-radius: 12px;
+}
+
+/* Respect users that prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .panel {
+  .kpi-card,
+  .chart-card {
+    transition: none;
+    transform: none !important;
+  }
+  .kpi-card::before,
+  .chart-card::before {
     transition: none;
   }
-  .panel:hover,
-  .panel:focus-within {
-    transform: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
-  }
-}
-@media (hover: none) {
-  .panel:hover {
-    transform: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
-  }
 }
 
+
+
 /* Keep existing layout; only ensure KPI content doesn’t shift on hover */
-.kpi {
+.kpi-card {
   display: grid;
   grid-template-columns: 56px 1fr;
   align-items: center;

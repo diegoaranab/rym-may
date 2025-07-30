@@ -95,6 +95,7 @@ export class DashboardComponent {
 
     return {
       bar: {
+        backgroundColor: '#ffffff',
         tooltip: { trigger: 'axis' },
         xAxis:   { type: 'category', data: courseNames, axisLabel: { rotate: 25 } },
         yAxis:   { type: 'value' },
@@ -102,6 +103,7 @@ export class DashboardComponent {
         grid:    { left: 36, right: 16, bottom: 40, top: 24 },
       },
       line: {
+        backgroundColor: '#ffffff',
         tooltip: { trigger: 'axis' },
         xAxis:   { type: 'category', data: weeks },
         yAxis:   { type: 'value' },
@@ -109,6 +111,7 @@ export class DashboardComponent {
         grid:    { left: 40, right: 16, bottom: 24, top: 24 },
       },
       pie: {
+        backgroundColor: '#ffffff',
         tooltip: { trigger: 'item' },
         series: [{
           type: 'pie',
