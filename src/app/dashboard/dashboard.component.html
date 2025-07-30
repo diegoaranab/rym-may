@@ -1,53 +1,36 @@
-<section class="dashboard">
-  <!-- Resolve streams separately to avoid invalid aliasing -->
-  <ng-container *ngIf="students | async as st">
-    <ng-container *ngIf="courses  | async as cs">
+<!-- KPIs -->
+<section class="kpis">
+  @let st = (students$ | async);
+  @let cs = (courses$  | async);
 
-      <!-- KPI cards -->
-      <div class="kpis">
-        <mat-card class="kpi">
-          <mat-icon>group</mat-icon>
-          <div class="val">{{ st.length }}</div>
-          <div class="lbl">Alumnas registradas</div>
-        </mat-card>
+  @if (st && cs) {
+    <div class="kpi">
+      <div class="num">{{ st.length }}</div>
+      <div class="label">Alumnas registradas</div>
+    </div>
 
-        <mat-card class="kpi">
-          <mat-icon>verified</mat-icon>
-          <div class="val">{{ countPaid(st) }}</div>
-          <div class="lbl">Depósitos pagados</div>
-        </mat-card>
+    <div class="kpi">
+      <div class="num">{{ countDepositsPaid(st) }}</div>
+      <div class="label">Depósitos pagados</div>
+    </div>
 
-        <mat-card class="kpi">
-          <mat-icon>calendar_today</mat-icon>
-          <div class="val">{{ countLast30Days(st) }}</div>
-          <div class="lbl">Inscripciones (30 días)</div>
-        </mat-card>
+    <div class="kpi">
+      <div class="num">{{ countEnrollments(st) }}</div>
+      <div class="label">Inscripciones (30 días)</div>
+    </div>
 
-        <mat-card class="kpi">
-          <mat-icon>school</mat-icon>
-          <div class="val">{{ cs.length }}</div>
-          <div class="lbl">Cursos publicados</div>
-        </mat-card>
-      </div>
+    <div class="kpi">
+      <div class="num">{{ cs.length }}</div>
+      <div class="label">Cursos publicados</div>
+    </div>
+  }
+</section>
 
-      <!-- Charts -->
-      <div class="charts">
-        <mat-card class="chart">
-          <h3>Alumnas por curso</h3>
-          <div echarts [options]="vm.charts.bar" class="echart"></div>
-        </mat-card>
-
-        <mat-card class="chart">
-          <h3>Inscripciones por semana</h3>
-          <div echarts [options]="vm.charts.line" class="echart"></div>
-        </mat-card>
-
-        <mat-card class="chart">
-          <h3>Depósitos</h3>
-          <div echarts [options]="vm.charts.pie" class="echart"></div>
-        </mat-card>
-      </div>
-
-    </ng-container>
-  </ng-container>
+<!-- Charts -->
+<section class="charts">
+  @if (st && cs) {
+    <div ngx-echarts [options]="buildCharts(st, cs).bar"  class="echart"></div>
+    <div ngx-echarts [options]="buildCharts(st, cs).line" class="echart"></div>
+    <div ngx-echarts [options]="buildCharts(st, cs).pie"  class="echart"></div>
+  }
 </section>
