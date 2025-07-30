@@ -40,3 +40,6 @@ body { margin: 0; font-family: 'Poppins', Roboto, sans-serif; }
 
 /* Global safety net to avoid stray horizontal scrollbars */
 html, body { overflow-x: hidden; }
+
+/* Ensure Material overlays (mat-select panel, menus, dialogs) sit above toolbar/sidenav */
+.cdk-overlay-container { z-index: 2000; } /* higher than any local headers */
