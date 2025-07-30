@@ -1,4 +1,7 @@
-<h2 class="titulo-seccion">Registrar alumna</h2>
+<h2 class="titulo-seccion">
+  Registrar alumna
+  <a routerLink="/courses" class="mini-link">Crear curso</a>
+</h2>
 
 <form [formGroup]="form" class="student-form" (ngSubmit)="save()">
   <mat-form-field appearance="outline">
@@ -18,15 +21,25 @@
 
   <mat-form-field appearance="outline" class="col">
     <mat-label>Curso(s)*</mat-label>
-    <mat-select formControlName="courseIds" multiple>
+    <mat-select formControlName="courseIds" multiple aria-label="Seleccionar cursos">
       <mat-select-trigger>
         {{ selectedCourseCount }} seleccionado(s)
       </mat-select-trigger>
-      <mat-option *ngFor="let c of (courses$ | async) || []" [value]="c.id">
-        {{ c.nombre }}
-      </mat-option>
+
+      <!-- Empty state when no courses exist -->
+      <ng-container *ngIf="(courses$ | async) as cursos">
+        <mat-option *ngIf="!cursos.length" disabled>
+          No hay cursos disponibles — cree un curso primero
+        </mat-option>
+        <mat-option *ngFor="let c of cursos; trackBy: trackById" [value]="c.id">
+          {{ c.nombre }}
+        </mat-option>
+      </ng-container>
     </mat-select>
     <mat-hint>Puede seleccionar uno o varios cursos</mat-hint>
+    <mat-error *ngIf="form.controls.courseIds.hasError('required')">
+      Selecciona al menos un curso
+    </mat-error>
   </mat-form-field>
 
   <mat-checkbox formControlName="paidDeposit">Depósito pagado</mat-checkbox>

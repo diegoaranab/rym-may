@@ -17,22 +17,25 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
 import { StudentEditDialogComponent } from '../dialogs/student-edit-dialog/student-edit-dialog.component';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf, NgFor } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-students',
   standalone: true,
   imports: [
-    ReactiveFormsModule, AsyncPipe,
+    ReactiveFormsModule, AsyncPipe, NgIf, NgFor,
+    RouterModule,
     MatFormFieldModule, MatInputModule,
     MatCheckboxModule, MatButtonModule,
     MatTableModule, MatSnackBarModule,
     MatIconModule, MatDialogModule,
-    MatSelectModule
+    MatSelectModule, MatOptionModule
   ],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
@@ -70,6 +73,8 @@ export class StudentsComponent {
     const val = this.form.get('courseIds')?.value;
     return Array.isArray(val) ? (val as any[]).length : 0;
   }
+
+  trackById = (_: number, item: { id: string }) => item.id;
 
   constructor(
     private fb: FormBuilder,
