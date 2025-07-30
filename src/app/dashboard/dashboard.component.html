@@ -1,36 +1,35 @@
-<!-- KPIs -->
-<section class="kpis">
-  @let st = (students$ | async);
-  @let cs = (courses$  | async);
-
-  @if (st && cs) {
-    <div class="kpi">
-      <div class="num">{{ st.length }}</div>
+<ng-container *ngIf="vm$ | async as vm">
+  <!-- KPIs -->
+  <section class="kpis">
+    <article class="kpi">
+      <div class="icon">👩‍🎓</div>
+      <div class="val">{{ vm.students.length }}</div>
       <div class="label">Alumnas registradas</div>
-    </div>
+    </article>
 
-    <div class="kpi">
-      <div class="num">{{ countDepositsPaid(st) }}</div>
+    <article class="kpi">
+      <div class="icon">✅</div>
+      <div class="val">{{ depositsPaid(vm.students) }}</div>
       <div class="label">Depósitos pagados</div>
-    </div>
+    </article>
 
-    <div class="kpi">
-      <div class="num">{{ countEnrollments(st) }}</div>
+    <article class="kpi">
+      <div class="icon">📅</div>
+      <div class="val">{{ enrollmentsLast30Days(vm.students) }}</div>
       <div class="label">Inscripciones (30 días)</div>
-    </div>
+    </article>
 
-    <div class="kpi">
-      <div class="num">{{ cs.length }}</div>
+    <article class="kpi">
+      <div class="icon">🎓</div>
+      <div class="val">{{ vm.courses.length }}</div>
       <div class="label">Cursos publicados</div>
-    </div>
-  }
-</section>
+    </article>
+  </section>
 
-<!-- Charts -->
-<section class="charts">
-  @if (st && cs) {
-    <div ngx-echarts [options]="buildCharts(st, cs).bar"  class="echart"></div>
-    <div ngx-echarts [options]="buildCharts(st, cs).line" class="echart"></div>
-    <div ngx-echarts [options]="buildCharts(st, cs).pie"  class="echart"></div>
-  }
-</section>
+  <!-- Charts -->
+  <section class="charts">
+    <div echarts [options]="buildCharts(vm.students, vm.courses).bar"  class="echart"></div>
+    <div echarts [options]="buildCharts(vm.students, vm.courses).line" class="echart"></div>
+    <div echarts [options]="buildCharts(vm.students, vm.courses).pie"  class="echart"></div>
+  </section>
+</ng-container>

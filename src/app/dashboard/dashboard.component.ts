@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgIf, NgFor } from '@angular/common';
 import { Student } from '../models/student.model';
 import { Course } from '../models/course.model';
 import { StudentService } from '../services/student.service';
@@ -8,11 +8,12 @@ import { CourseService } from '../services/course.service';
 // ECharts
 import { NgxEchartsDirective } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, NgxEchartsDirective],
+  imports: [CommonModule, AsyncPipe, NgIf, NgFor, NgxEchartsDirective],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -23,12 +24,29 @@ export class DashboardComponent {
   students$ = this.studentsSvc.students$;
   courses$  = this.coursesSvc.courses$;
 
+  vm$ = combineLatest([this.students$, this.courses$]).pipe(
+    map(([students, courses]) => ({ students, courses }))
+  );
+
   /** KPI helpers (course-level counts) */
-  countEnrollments(students: Student[]): number {
+  totalEnrollments(students: Student[]): number {
     return students.reduce((sum, s) => sum + (s.courseIds?.length ?? 0), 0);
   }
-  countDepositsPaid(students: Student[]): number {
-    return students.reduce((sum, s) => sum + (s.paidDeposit ? (s.courseIds?.length ?? 0) : 0), 0);
+
+  depositsPaid(students: Student[]): number {
+    return students.reduce(
+      (sum, s) => sum + (s.paidDeposit ? (s.courseIds?.length ?? 0) : 0),
+      0
+    );
+  }
+
+  enrollmentsLast30Days(students: Student[]): number {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 30);
+    return students.reduce((sum, s) => {
+      const inWindow = s.createdAt ? new Date(s.createdAt) >= cutoff : false;
+      return sum + (inWindow ? (s.courseIds?.length ?? 0) : 0);
+    }, 0);
   }
 
   /** Charts built from course-level counts */
@@ -71,8 +89,8 @@ export class DashboardComponent {
     }
 
     // -- Depósitos (pie) --
-    const totalEnrollments = this.countEnrollments(students);
-    const paid             = this.countDepositsPaid(students);
+    const totalEnrollments = this.totalEnrollments(students);
+    const paid             = this.depositsPaid(students);
     const pending          = Math.max(totalEnrollments - paid, 0);
 
     return {
