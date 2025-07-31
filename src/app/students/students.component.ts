@@ -100,7 +100,7 @@ export class StudentsComponent {
       createdAt: Date.now()
     };
     this.studentSvc.add(student);
-    this.snack.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-fixed' });
+    this.snack.open('¡Alumna registrada!', '', { duration: 2000, panelClass: 'snack-success' });
     this.form.reset({ courseIds: [] as any });
   }
 
