@@ -22,24 +22,31 @@ body { margin: 0; font-family: 'Poppins', Roboto, sans-serif; }
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* ---- Brand snackbars (MDC) ---- */
-.mat-mdc-snack-bar-container.snack-success .mdc-snackbar__surface {
-  background: #1D1E5B;  /* primary */
+/* ---- Brand snackbars ---- */
+.mat-mdc-snack-bar-container.snack-success {
+  background: #1D1E5B; /* primary */
   color: #fff;
-}
-.mat-mdc-snack-bar-container.snack-warn .mdc-snackbar__surface {
-  background: #C54573;  /* accent for destructive/alert */
-  color: #fff;
-}
-/* optional: rounded shape & slight elevation */
-.mat-mdc-snack-bar-container.snack-success .mdc-snackbar__surface,
-.mat-mdc-snack-bar-container.snack-warn .mdc-snackbar__surface {
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.24);
+}
+.mat-mdc-snack-bar-container.snack-warn {
+  background: #C54573; /* hot pink */
+  color: #fff;
+  border-radius: 12px;
+}
+/* (fallback) map old 'snack-fixed' to success */
+.mat-mdc-snack-bar-container.snack-fixed { background: #1D1E5B; color: #fff; }
+
+/* Prevent horizontal scrolling on small screens */
+html, body, .mat-drawer-content, mat-sidenav-content {
+  overflow-x: hidden !important;
 }
 
-/* Global safety net to avoid stray horizontal scrollbars */
-html, body { overflow-x: hidden; }
+/* Make flex/grid children shrink properly (avoids chart overflow) */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+.echart, canvas, img, video { max-width: 100%; height: auto; }
 
 /* Ensure Material overlays (mat-select panel, menus, dialogs) sit above toolbar/sidenav */
 .cdk-overlay-container { z-index: 2000; } /* higher than any local headers */

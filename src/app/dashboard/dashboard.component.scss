@@ -103,3 +103,13 @@
 .chart-card {
   padding: 16px 18px 6px;
 }
+
+/* Defensive overflow rules */
+:host { display: block; overflow-x: hidden; }
+.kpis, .charts, .card { min-width: 0; }
+.echart {
+  width: 100%;
+  min-width: 0;
+  background: #fff;
+  border-radius: 12px;
+}

@@ -1,4 +1,7 @@
+@use 'sass:color';
+@use '@angular/material' as mat;
 @use '../../../styles/layout';
+@use '../../../styles/rym-theme' as *;
 
 .dialog-title{
   font-family: 'Barlow Semi Condensed', sans-serif;
@@ -7,4 +10,5 @@
   color: #1D1E5B;
 }
 .dialog-content{ padding: layout.$space-2; }
+:host { .danger { color: #C54573; } }
 .dialog-actions{ padding: layout.$space-2; }

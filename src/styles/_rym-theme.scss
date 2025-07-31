@@ -23,7 +23,7 @@ $rym-primary: mat.define-palette((
 ));
 
 $rym-accent: mat.define-palette(mat.$pink-palette, 400, 300, 600);   // hot pink
-$rym-warn  : mat.define-palette(mat.$deep-orange-palette, 600);
+$rym-warn  : mat.define-palette(mat.$pink-palette, 600, 500, 700); // brand-aligned "warn"
 
 /* 2. Theme map */
 $rym-theme: mat.define-light-theme((
