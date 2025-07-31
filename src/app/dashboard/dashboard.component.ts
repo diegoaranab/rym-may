@@ -113,15 +113,29 @@ export class DashboardComponent {
       pie: {
         backgroundColor: '#ffffff',
         tooltip: { trigger: 'item' },
+        legend: {
+          orient: 'vertical',
+          right: 10,
+          top: 'center',
+          textStyle: { color: brandBlue },
+        },
         series: [{
           type: 'pie',
           radius: ['55%','80%'],
           avoidLabelOverlap: true,
-          label: { show: true, formatter: '{b}: {c}' },
           data: [
-            { name: 'Pagado',   value: paid,    itemStyle: { color: brandPink } },
-            { name: 'Pendiente',value: pending, itemStyle: { color: gray } },
+            { value: paid,    name: 'Pagado' },
+            { value: pending, name: 'Pendiente' },
           ],
+          label: {
+            show: true,
+            formatter: '{b}: {c}',
+            color: brandBlue,
+            fontSize: 12,
+          },
+          labelLine: { show: true, length: 12, length2: 8 },
+          itemStyle: { borderColor: '#fff', borderWidth: 2 },
+          color: [brandPink, gray],
         }],
       },
     };
